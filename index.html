@@ -1,75 +1,731 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Laundry Bersih</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaundryKu - Jasa Laundry Terpercaya</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c5aa0;
+            --secondary-color: #f8f9fa;
+            --accent-color: #17a2b8;
+            --text-dark: #343a40;
+            --gradient: linear-gradient(135deg, #2c5aa0 0%, #17a2b8 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        /* Custom Navbar */
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.8rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-dark) !important;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: var(--gradient);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="100" fill="rgba(255,255,255,0.1)"/><circle cx="800" cy="300" r="150" fill="rgba(255,255,255,0.05)"/><circle cx="400" cy="700" r="120" fill="rgba(255,255,255,0.08)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2rem;
+        }
+
+        .btn-custom {
+            background: white;
+            color: var(--primary-color);
+            font-weight: 600;
+            padding: 12px 30px;
+            border-radius: 50px;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            color: var(--primary-color);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background: var(--secondary-color);
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            border: none;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .service-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 1rem 0;
+        }
+
+        .price-unit {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: var(--secondary-color);
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(44, 90, 160, 0.25);
+        }
+
+        .contact-info {
+            background: var(--gradient);
+            border-radius: 20px;
+            padding: 2.5rem;
+            color: white;
+            height: 100%;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item i {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer h5 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .service-card, .pricing-card {
+                margin-bottom: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-tshirt me-2"></i>LaundryKu
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Layanan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">Harga</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Kontak</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-  <!-- Navbar -->
-  <nav class="bg-white shadow-md">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-blue-600">Laundry Bersih</h1>
-      <ul class="flex space-x-6">
-        <li><a href="#layanan" class="hover:text-blue-500">Layanan</a></li>
-        <li><a href="#testimoni" class="hover:text-blue-500">Testimoni</a></li>
-        <li><a href="#kontak" class="hover:text-blue-500">Kontak</a></li>
-      </ul>
-    </div>
-  </nav>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1>Jasa Laundry Terpercaya</h1>
+                        <p>Kami memberikan layanan laundry berkualitas tinggi dengan harga terjangkau. Pakaian Anda akan bersih, wangi, dan terawat dengan baik.</p>
+                        <a href="#services" class="btn-custom">
+                            <i class="fas fa-arrow-right me-2"></i>Lihat Layanan
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <div style="font-size: 15rem; color: rgba(255,255,255,0.1);">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Hero Section -->
-  <section class="bg-blue-100 py-20 text-center">
-    <h2 class="text-4xl font-bold mb-4">Solusi Laundry Cepat & Bersih</h2>
-    <p class="text-lg mb-6">Layanan laundry profesional dengan harga terjangkau</p>
-    <a href="#layanan" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Lihat Layanan</a>
-  </section>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="display-4 fw-bold text-primary mb-3">Layanan Kami</h2>
+                    <p class="lead">Berbagai layanan laundry profesional untuk kebutuhan Anda</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <h4>Cuci Kering</h4>
+                        <p>Layanan cuci kering untuk pakaian berbahan halus dan formal yang membutuhkan perawatan khusus.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <h4>Cuci Basah</h4>
+                        <p>Cuci basah reguler dengan deterjen berkualitas tinggi untuk pakaian sehari-hari Anda.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-iron"></i>
+                        </div>
+                        <h4>Setrika</h4>
+                        <p>Layanan setrika profesional untuk hasil yang rapi dan presisi pada setiap lipatan.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h4>Antar Jemput</h4>
+                        <p>Layanan antar jemput gratis untuk wilayah tertentu, memberikan kemudahan maksimal.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h4>Express</h4>
+                        <p>Layanan kilat untuk kebutuhan mendesak dengan hasil yang tetap berkualitas tinggi.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <h4>Bed Cover</h4>
+                        <p>Spesialisasi cuci bed cover, sprei, dan perlengkapan kasur dengan perawatan ekstra.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Layanan -->
-  <section id="layanan" class="py-16 max-w-6xl mx-auto px-4">
-    <h3 class="text-3xl font-bold text-center mb-10">Layanan Kami</h3>
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="bg-white p-6 rounded shadow">
-        <h4 class="text-xl font-semibold mb-2">Cuci Kering</h4>
-        <p>Laundry cepat dan bersih, siap dalam 24 jam.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h4 class="text-xl font-semibold mb-2">Setrika</h4>
-        <p>Pakaian disetrika rapi dan wangi.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h4 class="text-xl font-semibold mb-2">Antar Jemput</h4>
-        <p>Layanan antar jemput gratis untuk area tertentu.</p>
-      </div>
-    </div>
-  </section>
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="display-4 fw-bold text-primary mb-3">Daftar Harga</h2>
+                    <p class="lead">Harga terjangkau dengan kualitas terbaik</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <h4 class="text-primary">Paket Reguler</h4>
+                        <div class="price">
+                            Rp 5.000
+                            <span class="price-unit">/kg</span>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Cuci + Kering</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Deterjen Berkualitas</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Pewangi Pakaian</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Selesai 2-3 Hari</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <h4 class="text-primary">Paket Komplit</h4>
+                        <div class="price">
+                            Rp 8.000
+                            <span class="price-unit">/kg</span>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Cuci + Kering + Setrika</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Lipat Rapi</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Plastik Pembungkus</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Selesai 2-3 Hari</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <h4 class="text-primary">Paket Express</h4>
+                        <div class="price">
+                            Rp 12.000
+                            <span class="price-unit">/kg</span>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Cuci + Kering + Setrika</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Selesai 1 Hari</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Prioritas Utama</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Antar Jemput Gratis</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Testimoni -->
-  <section id="testimoni" class="bg-gray-100 py-16">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <h3 class="text-3xl font-bold mb-10">Apa Kata Pelanggan</h3>
-      <blockquote class="italic text-lg">"Pelayanan cepat dan hasil cucian sangat bersih. Sangat direkomendasikan!"</blockquote>
-      <p class="mt-4 font-semibold">– Rina, Jakarta</p>
-    </div>
-  </section>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="display-4 fw-bold text-primary mb-3">Hubungi Kami</h2>
+                    <p class="lead">Siap melayani kebutuhan laundry Anda 24/7</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="contact-form">
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Nama Lengkap</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Nomor Telepon</label>
+                                    <input type="tel" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Alamat</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Jenis Layanan</label>
+                                    <select class="form-control">
+                                        <option>Paket Reguler</option>
+                                        <option>Paket Komplit</option>
+                                        <option>Paket Express</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Estimasi Berat (kg)</label>
+                                    <input type="number" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Catatan Khusus</label>
+                                    <textarea class="form-control" rows="4"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary btn-lg px-4">
+                                        <i class="fas fa-paper-plane me-2"></i>Kirim Pesanan
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-info">
+                        <h4 class="mb-4">Informasi Kontak</h4>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Alamat</strong><br>
+                                Jl. Merdeka No. 123<br>
+                                Jakarta Pusat, 10110
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Telepon</strong><br>
+                                +62 812-3456-7890<br>
+                                +62 21-123-4567
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong><br>
+                                info@laundryku.com<br>
+                                cs@laundryku.com
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>Jam Operasional</strong><br>
+                                Senin - Minggu<br>
+                                06:00 - 22:00 WIB
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Kontak -->
-  <section id="kontak" class="py-16 max-w-4xl mx-auto px-4">
-    <h3 class="text-3xl font-bold text-center mb-10">Hubungi Kami</h3>
-    <form class="space-y-6">
-      <input type="text" placeholder="Nama" class="w-full p-3 border rounded" />
-      <input type="email" placeholder="Email" class="w-full p-3 border rounded" />
-      <textarea placeholder="Pesan" class="w-full p-3 border rounded h-32"></textarea>
-      <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Kirim</button>
-    </form>
-  </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5><i class="fas fa-tshirt me-2"></i>LaundryKu</h5>
+                    <p>Jasa laundry terpercaya dengan pengalaman lebih dari 10 tahun. Kami berkomitmen memberikan pelayanan terbaik untuk pakaian Anda.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Layanan</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Cuci Kering</a></li>
+                        <li><a href="#">Cuci Basah</a></li>
+                        <li><a href="#">Setrika</a></li>
+                        <li><a href="#">Express</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Perusahaan</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Karir</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Dukungan</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Hubungi Kami</a></li>
+                        <li><a href="#">Bantuan</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Area Layanan</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Jakarta Pusat</a></li>
+                        <li><a href="#">Jakarta Selatan</a></li>
+                        <li><a href="#">Jakarta Barat</a></li>
+                        <li><a href="#">Jakarta Timur</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 LaundryKu. Semua hak dilindungi.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">Dibuat dengan <i class="fas fa-heart text-danger"></i> untuk Indonesia</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-  <!-- Footer -->
-  <footer class="bg-white text-center py-6 shadow-inner">
-    <p>&copy; 2025 Laundry Bersih. All rights reserved.</p>
-  </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling untuk navigasi
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-custom');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Terima kasih! Pesanan Anda telah diterima. Tim kami akan segera menghubungi Anda.');
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                }
+            });
+        }, observerOptions);
+
+        // Observe service cards and pricing cards
+        document.querySelectorAll('.service-card, .pricing-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>
